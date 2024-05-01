@@ -1,10 +1,8 @@
 #include <iostream>
 #include <string>
 
-// Incluir la cola dinámica basada en la clase ListaLigada.h
-#include "ListaLigada.h"
+#include "ColaDinamica.h"
 
-// Definición de la clase SolicitudConstancia
 class SolicitudConstancia {
 private:
     std::string nombreAlumno;
@@ -18,10 +16,10 @@ public:
         : nombreAlumno(nombre), nombreCarrera(carrera), materiasAprobadas(materias), promedioGeneral(promedio) {}
 
     void mostrarDatos() const {
-        std::cout << "Nombre del alumno: " << nombreAlumno << "\n";
-        std::cout << "Carrera: " << nombreCarrera << "\n";
-        std::cout << "Materias aprobadas: " << materiasAprobadas << "\n";
-        std::cout << "Promedio general: " << promedioGeneral << "\n";
+        std::cout << "NOMBRE ALUMNO: " << nombreAlumno << "\n";
+        std::cout << "CARRERA: " << nombreCarrera << "\n";
+        std::cout << "MATERIAS APROBADAS: " << materiasAprobadas << "\n";
+        std::cout << "PROMEDIO GENERAL: " << promedioGeneral << "\n";
     }
 
     const std::string& getNombreAlumno() const {
@@ -35,28 +33,25 @@ public:
     }
 
     // Sobrecarga del operador << para imprimir SolicitudConstancia
-    friend std::ostream& operator<<(std::ostream& os, const SolicitudConstancia& solicitud);
+    friend std::ostream& operator<<(std::ostream& os, const SolicitudConstancia& solicitud) {
+        os << "NOMBRE ALUMNO: " << solicitud.nombreAlumno << "\n";
+        os << "CARRERA: " << solicitud.nombreCarrera << "\n";
+        os << "MATERIAS APROBADAS: " << solicitud.materiasAprobadas << "\n";
+        os << "PROMEDIO: " << solicitud.promedioGeneral << "\n";
+        return os;
+    }
 };
-
-// Sobrecarga del operador << para imprimir SolicitudConstancia
-std::ostream& operator<<(std::ostream& os, const SolicitudConstancia& solicitud) {
-    os << "Nombre del alumno: " << solicitud.nombreAlumno << "\n";
-    os << "Carrera: " << solicitud.nombreCarrera << "\n";
-    os << "Materias aprobadas: " << solicitud.materiasAprobadas << "\n";
-    os << "Promedio general: " << solicitud.promedioGeneral << "\n";
-    return os;
-}
 
 // Función para mostrar el menú y procesar las opciones
 void mostrarMenu(ColaDinamica<SolicitudConstancia>& colaSolicitudes) {
     int opcion;
     do {
-        std::cout << "\nMenú de opciones:\n";
-        std::cout << "1. Registrar solicitud de constancia\n";
-        std::cout << "2. Elaborar constancia\n";
-        std::cout << "3. Mostrar todas las solicitudes\n";
-        std::cout << "4. Salir\n";
-        std::cout << "Seleccione una opción: ";
+        std::cout << "\nMENU:\n";
+        std::cout << "1. REGISTRAR SOLI DE CONSTANCIA\n";
+        std::cout << "2. ELABORAR CONSTANCIA\n";
+        std::cout << "3. MOSTRAR SOLICITUDES\n";
+        std::cout << "4. SALIR\n";
+        std::cout << "OPCION: ";
         std::cin >> opcion;
 
         switch (opcion) {
@@ -65,19 +60,19 @@ void mostrarMenu(ColaDinamica<SolicitudConstancia>& colaSolicitudes) {
                 int materiasAprobadas;
                 float promedioGeneral;
 
-                std::cout << "Ingrese el nombre del alumno: ";
+                std::cout << "NOMBRE ALUMNO: ";
                 std::cin.ignore();
                 std::getline(std::cin, nombreAlumno);
-                std::cout << "Ingrese el nombre de la carrera: ";
+                std::cout << "CARRERA: ";
                 std::getline(std::cin, nombreCarrera);
-                std::cout << "Ingrese el total de materias aprobadas: ";
+                std::cout << "TOTAL DE MATERIAS APROBADAS: ";
                 std::cin >> materiasAprobadas;
-                std::cout << "Ingrese el promedio general: ";
+                std::cout << "PROMEDIO: ";
                 std::cin >> promedioGeneral;
 
                 SolicitudConstancia solicitud(nombreAlumno, nombreCarrera, materiasAprobadas, promedioGeneral);
                 colaSolicitudes.encolar(solicitud);
-                std::cout << "Solicitud registrada exitosamente.\n";
+                std::cout << "SE HA REGISTRADO LA SOLICITUD\n";
                 break;
             }
             case 2: {
@@ -85,21 +80,21 @@ void mostrarMenu(ColaDinamica<SolicitudConstancia>& colaSolicitudes) {
                     SolicitudConstancia solicitud = colaSolicitudes.frenteCola();
                     solicitud.mostrarDatos();
                     colaSolicitudes.desencolar();
-                    std::cout << "Constancia elaborada y solicitud eliminada de la cola.\n";
+                    std::cout << "CONSTANCIA ELABORADA \nSOLICITUD ELIMINADA DE LA COLA\n";
                 } else {
-                    std::cout << "No hay solicitudes pendientes.\n";
+                    std::cout << "SIN SOLICITUDES PENDIENTES\n";
                 }
                 break;
             }
             case 3: {
                 colaSolicitudes.imprimir();
-                break;
+break;
             }
             case 4:
-                std::cout << "Saliendo del programa...\n";
+                std::cout << "SALIENDO\n";
                 break;
             default:
-                std::cout << "Opción inválida. Intente de nuevo.\n";
+                std::cout << "OPCION NO VALIDA\n";
                 break;
         }
     } while (opcion != 4);
