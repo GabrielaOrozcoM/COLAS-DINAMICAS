@@ -1,23 +1,10 @@
-#ifndef LISTALIGADA_H_INCLUDED
-#define LISTALIGADA_H_INCLUDED
+#ifndef COLADINAMICA_H_INCLUDED
+#define COLADINAMICA_H_INCLUDED
 
 #include <iostream>
 
 template<class T>
 class ColaDinamica;
-
-// Sobrecarga del operador << para tipos genéricos
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const T& obj) {
-    os << obj.toString();  // Suponiendo que T tiene un método toString() que devuelve una cadena representativa
-    return os;
-}
-
-// Sobrecarga específica para const char* (cadenas de caracteres)
-std::ostream& operator<<(std::ostream& os, const char* obj) {
-    os << obj;  // Imprimir la cadena de caracteres directamente
-    return os;
-}
 
 template<class T>
 class node {
@@ -80,7 +67,7 @@ bool ColaDinamica<T>::desencolar() {
 template<class T>
 void ColaDinamica<T>::imprimir() const {
     node<T>* temp = frente;
-    while (temp != nullptr) {
+    while (temp!= nullptr) {
         std::cout << temp->data << " ";
         temp = temp->sig;
     }
@@ -95,4 +82,4 @@ T ColaDinamica<T>::frenteCola() const {
     return frente->data;
 }
 
-#endif // LISTALIGADA_H_INCLUDED
+#endif // COLADINAMICA_H_INCLUDED
